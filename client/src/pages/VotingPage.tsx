@@ -105,7 +105,10 @@ export function VotingPage() {
   };
 
   // Swipe navigation
-  const handleTouchStart = (e: React.TouchEvent) => setDragStartX(e.touches[0].clientX);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if ((e.target as HTMLElement).closest('input[type="range"]')) return;
+    setDragStartX(e.touches[0].clientX);
+  };
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (dragStartX == null) return;
     const diff = dragStartX - e.changedTouches[0].clientX;
